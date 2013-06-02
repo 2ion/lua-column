@@ -1,0 +1,71 @@
+column.lua
+==========
+
+Lua function to columnate strings, similar to the column(1) command.
+Given a string with more than one lines (defined as [^\n\r]+), the 1st,
+2nd ... nth words of every line will be placed in the 1st, 2nd ... nth
+output column respectively. The string resulting from columnation will
+be written to stdout or the specfied file handle. Calling column() on a
+single-line string equals replacing [%s] with $colsep.
+
+I wrote this as part of a function for pretty-printing tables.
+
+Synopsis
+========
+
+    (void) column(string[, file, colsep, blind)
+
+    where
+
+    string  is the input string,
+    file    is the output file to be written to (default: io.stdout)
+    colsep  is the column separator (default: "    " - 4 spaces)
+    blind   is the string substituted for lines with less words than the
+            longest line.
+
+Usage
+=====
+
+    local column = require("column")
+    column(...)
+
+Dependencies
+============
+
+    * Lua 5.1 or 5.2
+
+Example
+=======
+
+> c([[Dieser Buffer enthält Zeilen mit
+> Wörtern ganz ausgesprochen unterschiedlicher Länge, die
+> nun in ihre Glieder gesplittet und in
+> Spalten ausgegeben werden.]], io.stdout, "    ", "*")
+
+yields
+
+> Dieser      Buffer        enthält          Zeilen               mit           *      *
+> Wörtern     ganz          ausgesprochen    unterschiedlicher    Länge,        die    *
+> nun         in            ihre             Glieder              gesplittet    und    in    
+> Spalten     ausgegeben    werden.          *                    *             *      *
+
+on stdout.
+
+License
+=======
+
+column.lua - columnate multi-line strings
+Copyright (C) 2013 Jens Oliver John <asterisk@2ion.de>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
