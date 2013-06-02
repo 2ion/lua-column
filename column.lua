@@ -17,7 +17,7 @@
 -- along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -- 
 
-local function c(s, ofile, sep, blind)
+return function (s, ofile, sep, blind)
     local s = s
     local sep = sep or "    "
     local blind = blind or ""
