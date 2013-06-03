@@ -50,7 +50,7 @@ return function (s, ofile, sep, blind)
             table.insert(line, blind)
         end
         for i,word in ipairs(line) do
-            local wl = #word - (word:match("[öäüß]") and 1 or 0)
+            local wl = #word - (word:match("[öäüßÖÄÜ]") and 1 or 0)
             if wl < x[i] then
                 for tmp=1,(x[i]-wl) do
                     word = word .. " "

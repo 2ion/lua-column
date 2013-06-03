@@ -29,11 +29,6 @@ Usage
     local column = require("column")
     column(...)
 
-Dependencies
-============
-
-    * Lua 5.1 or 5.2
-
 Example
 =======
 
@@ -50,6 +45,19 @@ yields
 > Spalten     ausgegeben    werden.          *                    *             *      *
 
 on stdout.
+
+Limitations
+===========
+
+Unfortunately, Lua strings/regexes don't handle everything beyond ASCII
+not very well, so something may break in these cases (will break in case
+of multibyte characters). A workaround for German is already included
+([öüäÖÜÄß]), but be warned nevertheless.
+
+Dependencies
+============
+
+    * Lua 5.1 or 5.2
 
 License
 =======
