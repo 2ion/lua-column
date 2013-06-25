@@ -15,7 +15,26 @@
 -- 
 -- You should have received a copy of the GNU General Public License
 -- along with this program.  If not, see <http://www.gnu.org/licenses/>.
--- 
+
+local strlen_ger_utf8_t = { [0xc3] = { 0xa4, 0x84, 0xbc, 0x9c, 0xb6, 0x96, 0x9f } }
+
+-- FIXME: check also the byte *after* occurences of 0xc3 (and keep the
+-- loop for that)
+local function strlen_ger_utf8(w)
+    local s = {}
+    local len = 0
+    w:gsub("(.)", function (c)
+        table.insert(s, c:byte())
+    end)
+    for i=1,#s do
+        if strlen_ger_utf8_t[s[i]] then
+            i = i + 1
+        else
+            len = len + 1
+        end
+    end
+    return len
+end
 
 return function (s, ofile, sep, blind)
     local s = s
@@ -50,7 +69,8 @@ return function (s, ofile, sep, blind)
             table.insert(line, blind)
         end
         for i,word in ipairs(line) do
-            local wl = #word - (word:match("[öäüßÖÄÜ]") and 1 or 0)
+            -- workaround for common German utf-8 umlauts
+            local wl = word:match("[öäüÖÄÜß]") and strlen_ger_utf8(word) or #word
             if wl < x[i] then
                 for tmp=1,(x[i]-wl) do
                     word = word .. " "
