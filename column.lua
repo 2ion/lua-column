@@ -45,6 +45,9 @@ local function columnate(s, csep, rsep)
     end
   end
 
+
+
 end
 
-columnate("Hello World", ' ')
+columnate([[Hello World
+Sauerstofflashe im Parfait]], ' ')
