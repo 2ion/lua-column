@@ -26,7 +26,7 @@ local function columnate(s, csep, rsep)
       table.insert(cr, {})
     elseif c == rsep then
       maxc = math.max(maxc, #cr)
-      table.insert(r, {})
+      table.insert(r, {{}})
     else
       local cc = cr[#cr]
       local ccmt = getmetatable(cc) or getmetatable(setmetatable(cc, { width = 0 }))
@@ -45,9 +45,7 @@ local function columnate(s, csep, rsep)
     end
   end
 
-
-
 end
 
 columnate([[Hello World
-Sauerstofflashe im Parfait]], ' ')
+Sauerstoffflasche im Parfait]], ' ')
