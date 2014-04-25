@@ -3,7 +3,11 @@
 assert(_VERSION == "Lua 5.3", "This program requires Lua 5.3")
 
 local function columnate(s, csep, rsep)
+  local csep = csep or ' '
+  local rsep = rsep or '\n'
+  local s = s
   local r = { { {} } }
+
   for _,c in utf8.codes(s) do
     local c = utf8.char(c)
     local cr = r[#r]
