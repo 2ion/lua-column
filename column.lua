@@ -1,6 +1,6 @@
-#!./lua
+#!/usr/bin/env lua5.3
 
-assert(_VERSION == "Lua 5.3", "This program requires Lua 5.3")
+assert(_VERSION == "Lua 5.3", "This module requires Lua 5.3")
 
 local function track_cwidth(rt, tt)
   local cr = rt[#rt]
@@ -9,10 +9,12 @@ local function track_cwidth(rt, tt)
   tt[ci] = math.max(tt[ci] or 0, cmt.width)
 end
 
-local function columnate(s, csep, rsep)
+local function columnate(s, csep, rsep, osep)
 
   local csep = csep or ' '
   local rsep = rsep or '\n'
+  local osep = osep or ' '
+  local o = ""
   local s = s
   local r = { { {} } }
   local maxc = 0
@@ -39,13 +41,25 @@ local function columnate(s, csep, rsep)
 
   for _,row in ipairs(r) do
     for ci,col in ipairs(row) do
-      for i=1,(maxcwidth[ci]-getmetatable(col).width) do
+      for i=1,((maxcwidth[ci] or 0)-getmetatable(col).width) do
         table.insert(col, ' ')
       end
     end
   end
 
+  for _,row in ipairs(r) do
+    local orow = {}
+    if o ~= "" then
+      o = o .. rsep
+    end
+    for _,col in ipairs(row) do
+      table.insert(orow, table.concat(col, ''))
+    end
+    o = o .. table.concat(orow, osep)
+  end
+
+  return o, r
+
 end
 
-columnate([[Hello World
-Sauerstoffflasche im Parfait]], ' ')
+return columnate
