@@ -9,11 +9,13 @@ local function track_cwidth(rt, tt)
   tt[ci] = math.max(tt[ci] or 0, cmt.width)
 end
 
-local function columnate(s, csep, rsep, osep)
+local function columnate(s, csep, rsep, osep, orsep)
+  assert(s, "columnate(): argument #1 must not be NIL.")
 
   local csep = csep or ' '
   local rsep = rsep or '\n'
   local osep = osep or ' '
+  local orsep = orsep or rsep
   local o = ""
   local s = s
   local r = { { {} } }
@@ -50,7 +52,7 @@ local function columnate(s, csep, rsep, osep)
   for _,row in ipairs(r) do
     local orow = {}
     if o ~= "" then
-      o = o .. rsep
+      o = o .. orsep
     end
     for _,col in ipairs(row) do
       table.insert(orow, table.concat(col, ''))

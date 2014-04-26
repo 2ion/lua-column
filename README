@@ -7,13 +7,20 @@ Works with UTF-8 encoded Unicode strings only.
 Synopsis
 ========
 
-    column(s, csep, rsep)
+    column(s, csep, rsep, osep, orsep)
 
     where
 
     string  is the input string. Encoding: UTF-8.
+            Required.
     csep    is the column separator. Encoding: UTF-8.
+            Defaults to a whitespace.
     rsep    is the row seperator. Encoding: UTF-8.
+            Defaults to newline.
+    osep    is the column separator printed in the output string.
+            Defaults to a whitespace.
+    orsep   is the row separator printed in the output string.
+            Defaults to rsep.
 
     The function returns two values u,v:
 
